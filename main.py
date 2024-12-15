@@ -1,4 +1,7 @@
 from tkinter import *
+import menu
+from menu import pause
+
 
 # область функции
 def set_status(text, color='black'):
@@ -6,22 +9,23 @@ def set_status(text, color='black'):
 
 
 def key_handler(event):
-    # if event.keycode == KEY_UP:
-    #     menu_up()
-    # if event.keycode == KEY_DOWN:
-    #     menu_down()
-    # if event.keycode == KEY_ENTER:
-    #     menu_enter()
-    #
+    if event.keycode == KEY_UP:
+        menu.menu_up(canvas)
+    if event.keycode == KEY_DOWN:
+        menu.menu_down(canvas)
+    if event.keycode == KEY_ENTER:
+        menu.menu_enter(canvas)
+
     if game_over:
         return
-    # if event.keycode == KEY_PAUSE:
-    #     pause_toggle()
-    #
-    # if pause:
-    #     return
-    # if event.keycode == KEY_ESC:
-    #     menu_toggle()
+    if event.keycode == KEY_PAUSE:
+        menu.pause_toggle()
+        set_status('ПАУЗА')
+
+    if menu.pause:
+        return
+    if event.keycode == KEY_ESC:
+        menu.menu_toggle(canvas)
 
     # if menu_mode:
     #     return
@@ -82,7 +86,7 @@ window.title('Меню игры')
 
 canvas = Canvas(window, width=game_width, height=game_height, bg='white')
 canvas.pack()
-#menu_create(canvas)
+menu.menu_create(canvas)
 player1 = canvas.create_rectangle(x1,
                                   y1,
                                   x1 + player_size,
